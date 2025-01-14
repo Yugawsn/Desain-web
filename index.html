@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman dengan Header Sliding Picture yang Besar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #ead8af;
+        }
+        .slideshow-container {
+            width: 100%;
+            max-width: 1000px;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #ccc;
+            margin-bottom: 20px;
+        }
+        .slides {
+            display: none;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .active {
+            display: block;
+        }
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            margin-top: 20px;
+        }
+        .menu {
+            width: 25%;
+            display: flex;
+            flex-direction: column;
+            margin-right: 20px;
+        }
+        .menu button {
+            margin: 10px 0;
+            padding: 15px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #785a02;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .menu button:hover {
+            background-color: #ca8700;
+        }
+        .content {
+            width: 70%;
+            border: 2px solid #ccc;
+            padding: 30px;
+            background-color: #ffffff;
+            min-height: 400px;
+            text-align: justify;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+        @media (max-width: 768px) {
+            .slideshow-container, .content, .menu {
+                width: 90%;
+                margin: 0 auto;
+            }
+            .menu {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .menu button {
+                width: 45%;
+                margin: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Slideshow container -->
+    <div class="slideshow-container">
+        <img src="slide1.jpg" class="slides active" alt="Gambar 1">
+        <img src="slide2.jpg" class="slides" alt="Gambar 2">
+        <img src="slide3.jpg" class="slides" alt="Gambar 3">
+    </div>
+
+    <div class="container">
+        <div class="menu">
+            <button onclick="loadContent('home')">Home</button>
+            <button onclick="loadContent('education')">Education</button>
+            <button onclick="loadContent('family')">Family</button>
+            <button onclick="loadContent('about')">About</button>
+        </div>
+        <div class="content" id="content">
+            <h2>Selamat Datang</h2>
+            <p>Ini adalah halaman utama. Pilih menu di sebelah kiri untuk menampilkan konten lainnya.</p>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript untuk sliding picture
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slides');
+
+        function showSlides() {
+            slides.forEach((slide) => {
+                slide.classList.remove('active');
+            });
+            slideIndex = (slideIndex + 1) % slides.length;
+            slides[slideIndex].classList.add('active');
+        }
+
+        setInterval(showSlides, 3000); // Ganti slide setiap 3 detik
+
+        // Fungsi untuk mengubah konten tengah
+        function loadContent(page) {
+            const content = document.getElementById('content');
+            if (page === 'home') {
+                content.innerHTML = `
+                    <h2 style="text-align: center; color: #785a02;">Selamat Datang di Halaman Home</h2>
+                    <div style="background-color: #f5e7c5; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                        <h3 style="text-align: center; color: #ca8700;">Ini adalah halaman utama</h3>
+                        <p style="text-align: center; color: #333; font-size: 18px;">Selamat datang di situs web saya. Di sini, Anda dapat menemukan informasi tentang saya, pendidikan, keluarga, dan banyak lagi. Silakan jelajahi melalui menu di sebelah kiri untuk mengetahui lebih lanjut.</p>
+                    </div>
+                `;
+            } else if (page === 'education') {
+                content.innerHTML = `
+                    <h2 style="text-align: center; color: #785a02;">Halaman Education</h2>
+                    <div style="background-color: #f5e7c5; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                        <h3 style="text-align: center; color: #ca8700;">Pendidikan Saya</h3>
+                        <p style="text-align: center; color: #333;">Saya adalah mahasiswa di program studi Teknik Informatika. Saya belajar mengenai berbagai topik dalam dunia komputer, teknologi informasi, dan pengembangan perangkat lunak.</p>
+                        <p style="text-align: center; font-size: 18px; color: #785a02;">Di universitas, saya fokus pada pengembangan keterampilan teknis dan pemecahan masalah dengan menggunakan teknologi.</p>
+                    </div>
+                `;
+            } else if (page === 'family') {
+                content.innerHTML = `
+                    <h2 style="text-align: center; color: #785a02;">Halaman Family</h2>
+                    <div style="background-color: #f5e7c5; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                        <h3 style="text-align: center; color: #ca8700;">Keluarga Saya</h3>
+                        <div style="display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <img src="ayah.jpg" 
+                                    alt="Foto Ayah" 
+                                    style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 3px solid #ca8700;">
+                                <p style="margin-top: 10px; color: #785a02;">Ayah</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <img src="IBU.jpg" 
+                                    alt="Foto Ibu" 
+                                    style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 3px solid #ca8700;">
+                                <p style="margin-top: 10px; color: #785a02;">Ibu</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
+                            <div style="text-align: center;">
+                                <img src="SAYA.jpg" 
+                                    alt="Foto Saya" 
+                                    style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 3px solid #ca8700;">
+                                <p style="margin-top: 10px; color: #785a02;">Saya</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <img src="adik.jpg" 
+                                    alt="Foto Adik" 
+                                    style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 3px solid #ca8700;">
+                                <p style="margin-top: 10px; color: #785a02;">Adik</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (page === 'about') {
+                content.innerHTML = `
+                    <h2 style="text-align: center; color: #785a02;">Halaman About</h2>
+                    <div style="background-color: #f5e7c5; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center;">
+                        <img src="yuga.jpg" 
+                            alt="Foto Saya" 
+                            style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%; border: 4px solid #ca8700;">
+                        <h3 style="margin-top: 15px; color: #785a02;">I Putu Satyuga Tamba Waisnawa </h3>
+                        <p style="color: #ca8700; font-size: 18px;">2401010418</p>
+                        <p style="color: #785a02; font-size: 18px;">TI - MTI</p>
+                        <p style="margin-top: 20px; color: #333; line-height: 1.8;">
+                            Saya adalah mahasiswa Teknik Informatika yang memiliki minat besar pada bidang teknologi 
+                            dan pengembangan perangkat lunak. Saya percaya bahwa melalui teknologi, kita bisa membawa 
+                            perubahan positif bagi masyarakat.
+                        </p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+
+</body>
+</html>
